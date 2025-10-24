@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="id"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script>
+      (function() {
+        try {
+          var theme = localStorage.getItem('theme');
+          var html = document.documentElement;
+          if (theme === 'light') {
+            html.classList.remove('dark');
+          } else {
+            html.classList.add('dark'); // Default ke 'dark' untuk tema Cyber
+          }
+        } catch (e) { /* Abaikan error */ }
+      })();
+    </script>
+    
+    <title>Indo Elite Studio - Jasa Map Roblox</title> 
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        mono: ['Roboto Mono', 'monospace'],
+                    },
+                    colors: {
+                        'dark-bg': '#120E26',
+                        'neon-pink': '#FF00E6',
+                        'neon-teal': '#00F4E0',
+                        'light-text': '#E0E0E0',
+                        'dark-text': '#B0B0B0',
+                        'card-bg': 'rgba(26, 16, 50, 0.7)',
+                        'border-color': 'rgba(0, 244, 224, 0.3)',
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        'glow': {
+                            '0%': { opacity: '0.3' },
+                            '50%': { opacity: '0.7' },
+                            '100%': { opacity: '0.3' },
+                        },
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.6s ease-out both',
+                        'glow': 'glow 4s ease-in-out infinite alternate',
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(rgba(0, 244, 224, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 244, 224, 0.07) 1px, transparent 1px)",
+                    },
+                },
+            },
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer base {
+          html {
+            @apply scroll-smooth;
+          }
+          body {
+            @apply bg-dark-bg text-light-text font-sans;
+            background-image: theme('backgroundImage.grid-pattern');
+            background-size: 30px 30px;
+            background-position: 0 0;
+          }
+          /* Scrollbar Kustom (Cyber-Grid) */
+          ::-webkit-scrollbar { width: 8px; height: 8px; }
+          ::-webkit-scrollbar-track { @apply bg-dark-bg; }
+          ::-webkit-scrollbar-thumb { @apply bg-neon-teal rounded-full; box-shadow: 0 0 5px #00F4E0; }
+          ::-webkit-scrollbar-thumb:hover { @apply bg-neon-pink; box-shadow: 0 0 5px #FF00E6; }
+        }
+
+        @layer components {
+          /* Navbar "Cakep" */
+          .navbar-default { @apply sticky top-0 z-50 transition-all duration-300; background-color: transparent; }
+          .navbar-scrolled { @apply bg-dark-bg/80 backdrop-blur-lg; border-bottom: 1px solid theme('colors.border-color'); }
+          
+          /* Nav Link "Active" (Neon) */
+          .navbar-link { @apply relative py-2 transition-colors duration-200 text-dark-text hover:text-neon-pink font-mono font-semibold uppercase tracking-wider text-sm; }
+          .navbar-link.active { @apply text-neon-teal; text-shadow: 0 0 8px #00F4E0; }
+
+          /* Tombol & Kartu "Neon" */
+          .cta-button { @apply bg-neon-teal text-dark-bg font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform; box-shadow: 0 0 15px rgba(0, 244, 224, 0.7); }
+          .cta-button:hover { @apply scale-105; box-shadow: 0 0 30px rgba(0, 244, 224, 1); }
+          
+          .dark-mode-toggle-button { @apply w-10 h-10 rounded-full flex items-center justify-center text-neon-teal hover:bg-border-color transition-colors; border: 1px solid theme('colors.border-color'); }
+          .light .dark-mode-toggle-button { @apply text-neon-pink border-neon-pink hover:bg-neon-pink/10; }
+
+          .cyber-card { @apply bg-card-bg backdrop-blur-sm p-8 rounded-xl shadow-lg relative overflow-hidden; border: 1px solid theme('colors.border-color'); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+          .cyber-card:hover { @apply transform -translate-y-1; box-shadow: 0 0 20px rgba(0, 244, 224, 0.3); }
+          .cyber-card::before { content: ''; @apply absolute -top-1/2 -left-1/2 w-full h-full; background: radial-gradient(circle, rgba(0, 244, 224, 0.2) 0%, rgba(0, 244, 224, 0) 60%); animation: glow 4s ease-in-out infinite alternate; }
+          
+          .cyber-card-title { @apply text-2xl font-bold mb-4 text-neon-teal; text-shadow: 0 0 5px rgba(0, 244, 224, 0.7); }
+          .cyber-card-price { @apply text-lg font-bold font-mono text-neon-pink; text-shadow: 0 0 5px rgba(255, 0, 230, 0.7); }
+          .cyber-card-desc { @apply text-dark-text; }
+          
+          .cyber-team-img { @apply w-32 h-32 rounded-full mx-auto mb-4 border-4 border-neon-teal; box-shadow: 0 0 15px rgba(0, 244, 224, 0.7); transition: all 0.3s ease; }
+          .cyber-card:hover .cyber-team-img { @apply border-neon-pink; box-shadow: 0 0 20px rgba(255, 0, 230, 0.7); }
+
+          /* Animasi "Reveal on Scroll" (INI YANG MEMBUAT 'INVISIBLE') */
+          .reveal-on-scroll { @apply opacity-0 translate-y-5; }
+          .reveal-on-scroll.is-visible { animation: fade-in-up 0.6s ease-out both; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="main-header" class="navbar-default">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-neon-teal hover:text-neon-pink transition-colors">
+                Indo Elite Studio
+            </a>
+            
+            <div id="nav-links" class="hidden md:flex items-center space-x-8">
+                <a href="#jasa" class="navbar-link" data-target="#jasa">Jasa</a>
+                <a href="#project" class="navbar-link" data-target="#project">Project</a>
+                <a href="#tim" class="navbar-link" data-target="#tim">Tim</a>
+                <a href="#kontak" class="navbar-link" data-target="#kontak">Kontak</a>
+            </div>
+            
+            <button id="darkModeToggle" class="dark-mode-toggle-button">
+                <ion-icon name="moon-outline" class="text-2xl hidden dark:inline"></ion-icon>
+                <ion-icon name="sunny-outline" class="text-2xl inline dark:hidden"></ion-icon>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        
+        <section id="home" class="container mx-auto px-6 py-32 text-center">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-4 text-neon-teal" style="text-shadow: 0 0 10px rgba(0, 244, 224, 0.7);">
+                Indo Elite Studio
+            </h1>
+            <p class="text-xl md:text-2xl text-dark-text mb-10">
+                Solusi Profesional untuk Jasa Pembuatan Map Roblox.
+            </p>
+            <a href="#jasa" class="cta-button">
+                Lihat Daftar Harga
+            </a>
+        </section>
+
+        <section id="jasa" class="py-24 reveal-on-scroll">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-3 text-neon-teal">💰 DAFTAR HARGA JASA MAP ROBLOX - Harga Oktober 🛠️</h2>
+                    <p class="text-lg text-dark-text mt-2">Semua harga dalam Rupiah (IDR). Harga Desain Map Dasar tergantung kompleksitas request.</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="cyber-card">
+                        <h3 class="cyber-card-title">🏔️ 1. PAKET MAP GUNUNG/CLIMB</h3>
+                        <ul class="space-y-4">
+                            <li class="border-t border-border-color pt-4 first:border-t-0 first:pt-0">
+                                <p class="font-semibold text-light-text">Desain Map Dasar</p>
+                                <p class="cyber-card-price">Mulai Rp500.000</p>
+                                <p class="text-sm text-dark-text mt-1">(Harga menyesuaikan request)</p>
+                            </li>
+                            <li class="border-t border-border-color pt-4">
+                                <p class="font-semibold text-light-text">PAKET MEDIUM</p>
+                                <p class="cyber-card-price">TOTAL: Rp700.000</p>
+                                <p class="text-sm text-dark-text mt-1">(+Rp200.000) -> Terima Jadi. Termasuk: Checkpoint, Summit, Carry, Aura, Title, Hide Aura & Title.</p>
+                            </li>
+                            <li class="border-t border-border-color pt-4">
+                                <p class="font-semibold text-light-text">PAKET LENGKAP</p>
+                                <p class="cyber-card-price">TOTAL: Rp1.000.000</p>
+                                <p class="text-sm text-dark-text mt-1">(+Rp500.000) -> Terima Jadi. Termasuk: Semua Fitur Script Gunung.</p>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="cyber-card">
+                        <h3 class="cyber-card-title">💥 2. PAKET MAP RELAPSE/TYCOON</h3>
+                        <ul class="space-y-4">
+                            <li class="border-t border-border-color pt-4 first:border-t-0 first:pt-0">
+                                <p class="font-semibold text-light-text">Desain Map Dasar</p>
+                                <p class="cyber-card-price">Mulai Rp300.000</p>
+                                <p class="text-sm text-dark-text mt-1">(Harga menyesuaikan request)</p>
+                            </li>
+                            <li class="border-t border-border-color pt-4">
+                                <p class="font-semibold text-light-text">PAKET SCRIPT</p>
+                                <p class="cyber-card-price">TOTAL: Rp700.000</p>
+                                <p class="text-sm text-dark-text mt-1">(+Rp400.000) -> Terima Jadi. Termasuk: Donation, Title, AFK System, Setting Graphic, Music System, Emote, Siang/Malam, Leaderboard.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-16 cyber-card">
+                    <h3 class="cyber-card-title text-center">📝 FITUR SCRIPT GUNUNG (Rp500K)</h3>
+                    <div class="grid md:grid-cols-3 gap-8 text-center md:text-left">
+                        <div>
+                            <h4 class="text-xl font-bold mb-3 text-neon-pink">Keamanan & Admin (Integrasi Discord)</h4>
+                            <ul class="list-disc list-inside space-y-1 text-dark-text">
+                                <li>Report System: Laporan masuk ke Channel Bot Discord.</li>
+                                <li>Log Server: Pantau statistik server lewat Discord.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-3 text-neon-pink">Sistem Inti & Kustom</h4>
+                            <ul class="list-disc list-inside space-y-1 text-dark-text">
+                                <li>Checkpoint + Summit System</li>
+                                <li>Carry System, Emote System</li>
+                                <li>Title Kustom (Owner/Admin/Streamer, dll.)</li>
+                                <li>Hide Aura & Title System</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-3 text-neon-pink">Vip & Gamepass</h4>
+                            <ul class="list-disc list-inside space-y-1 text-dark-text">
+                                <li>Sistem Gamepass</li>
+                                <li>Music System</li>
+                                <li>Vip Benefit</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="project" class="py-24 reveal-on-scroll">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-3 text-neon-teal">Project Kami</h2>
+                    <p class="text-lg text-dark-text">Beberapa map yang telah kami kerjakan.</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="cyber-card group !p-0 overflow-hidden">
+                        <img src="assets/elite.png" alt="Mount Elite" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-6">
+                            <h3 class="cyber-card-title">Mount Elite</h3>
+                            <p class="cyber-card-desc mb-4">Project map gunung dengan fitur climbing dan sistem kustom yang lengkap.</p>
+                            <a href="https://www.roblox.com/id/games/88335800030716/FREE-COIL-SUMMIT-X25-MOUNT-ELIT" target="_blank" rel="noopener noreferrer" class="font-semibold font-mono text-neon-teal hover:text-neon-pink transition-colors">
+                                Lihat Game &rarr;
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="cyber-card group !p-0 overflow-hidden">
+                        <img src="assets/goa.png" alt="Goa Batu BGTT" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="p-6">
+                            <h3 class="cyber-card-title">Goa Batu BGTT</h3>
+                            <p class="cyber-card-desc mb-4">Map dengan desain goa yang kompleks dan menantang, fokus pada eksplorasi.</p>
+                            <a href="https://www.roblox.com/share?code=fef4e95962d47446b3579d9b2c3b1e36&type=ExperienceDetails&stamp=1761282602662" target="_blank" rel="noopener noreferrer" class="font-semibold font-mono text-neon-teal hover:text-neon-pink transition-colors">
+                                Lihat Game &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tim" class="py-24 reveal-on-scroll">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-3 text-neon-teal">Tim Indo Elite Studio</h2>
+                    <p class="text-lg text-dark-text">Orang-orang di balik layar.</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-10">
+                    <div class="cyber-card text-center">
+                        <img src="assets/hong.png" alt="HongX" class="cyber-team-img">
+                        <h3 class="text-2xl font-bold text-light-text">HongX</h3>
+                        <p class="font-semibold text-neon-pink mb-3 font-mono">Owner</p>
+                        <div class="flex justify-center space-x-4">
+                            <a href="https://www.instagram.com/hong9x9?igsh=MWNidDk0Mjl5emNsZQ==" target="_blank" rel="noopener noreferrer" class="text-dark-text hover:text-neon-teal text-2xl transition-colors">
+                                <ion-icon name="logo-instagram"></ion-icon>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="cyber-card text-center">
+                        <img src="assets/monx.png" alt="Monx" class="cyber-team-img">
+                        <h3 class="text-2xl font-bold text-light-text">Monx</h3>
+                        <p class="font-semibold text-neon-pink mb-3 font-mono">Programmer</p>
+                        <div class="flex justify-center space-x-4">
+                            <a href="https://www.instagram.com/xmonz._?igsh=MTFmMW1iOTVqMTYyNg==" target="_blank" rel="noopener noreferrer" class="text-dark-text hover:text-neon-teal text-2xl transition-colors">
+                                <ion-icon name="logo-instagram"></ion-icon>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="cyber-card text-center">
+                        <img src="assets/david.png" alt="David" class="cyber-team-img">
+                        <h3 class="text-2xl font-bold text-light-text">David</h3>
+                        <p class="font-semibold text-neon-pink mb-3 font-mono">Designer</p>
+                        <div class="flex justify-center space-x-4">
+                            <a href="https://www.instagram.com/vyddd_prnma?igsh=MXZnY3Z1ZTdxYjgwbA==" target="_blank" rel="noopener noreferrer" class="text-dark-text hover:text-neon-teal text-2xl transition-colors">
+                                <ion-icon name="logo-instagram"></ion-icon>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="kontak" class="py-16 reveal-on-scroll border-t border-border-color">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-3xl font-bold mb-6 text-neon-teal">Hubungi Kami</h3>
+            <p class="text-lg mb-8 text-dark-text">Siap memulai project Anda? Hubungi kami melalui sosial media.</p>
+            
+            <div class="flex flex-wrap justify-center gap-6 md:gap-8 mb-8">
+                <a href="https://instagram.com/indoelitestudio" target="_blank" rel="noopener noreferrer" class="flex items-center text-lg text-dark-text hover:text-neon-teal transition-colors font-mono">
+                    <ion-icon name="logo-instagram" class="text-2xl mr-2"></ion-icon> Instagram
+                </a>
+                <a href="https://tiktok.com/@indoelitestudio" target="_blank" rel="noopener noreferrer" class="flex items-center text-lg text-dark-text hover:text-neon-teal transition-colors font-mono">
+                    <ion-icon name="logo-tiktok" class="text-2xl mr-2"></ion-icon> TikTok
+                </a>
+                <a href="https://discord.gg/4sxwEPx8NB" target="_blank" rel="noopener noreferrer" class="flex items-center text-lg text-dark-text hover:text-neon-teal transition-colors font-mono">
+                    <ion-icon name="logo-discord" class="text-2xl mr-2"></ion-icon> Discord
+                </a>
+            </div>
+            
+            <div class="border-t border-border-color pt-8">
+                <p class="text-dark-text font-mono">&copy; 2025 Indo Elite Studio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Logika Dark Mode
+            const toggleButton = document.getElementById('darkModeToggle');
+            const htmlElement = document.documentElement;
+            if (toggleButton) {
+                toggleButton.addEventListener('click', () => {
+                    const isDark = htmlElement.classList.contains('dark');
+                    const newTheme = isDark ? 'light' : 'dark';
+                    htmlElement.classList.toggle('dark', newTheme === 'dark');
+                    localStorage.setItem('theme', newTheme);
+                });
+            }
+
+            // 2. Logika Navbar "Frosted Glass"
+            const header = document.getElementById('main-header');
+            if (header) {
+                const scrollThreshold = 50; 
+                window.addEventListener('scroll', () => {
+                    header.classList.toggle('navbar-scrolled', window.scrollY > scrollThreshold);
+                }, { passive: true });
+            }
+
+            // 3. Logika Animasi "Invisible" (Scroll Reveal)
+            const revealElements = document.querySelectorAll('.reveal-on-scroll');
+            if (revealElements.length > 0) {
+                const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+                revealElements.forEach(el => observer.observe(el));
+            }
+
+            // 4. Logika "Scroll-Spy" (Menu Aktif)
+            const sections = document.querySelectorAll('section[id], footer[id]');
+            const navLinks = document.querySelectorAll('.navbar-link');
+            if (sections.length > 0 && navLinks.length > 0) {
+                const observerOptions = { root: null, rootMargin: '-50% 0px -50% 0px', threshold: 0 };
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const id = entry.target.getAttribute('id');
+                            const activeLink = document.querySelector(`.navbar-link[data-target="#${id}"]`);
+                            navLinks.forEach(link => link.classList.remove('active'));
+                            if (activeLink) activeLink.classList.add('active');
+                        }
+                    });
+                }, observerOptions);
+                sections.forEach(section => observer.observe(section));
+            }
+        });
+    </script>
+</body>
+</html>
